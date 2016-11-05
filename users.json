@@ -1,14 +1,20 @@
 [
     {
-        "signup": "20161104",
         "macaddress": "0:0:0:0:123",
         "hostname": "FuYuanXD",
-        "days": 3
+        "days": 3,
+        "signup": "20161104"
     },
     {
-        "signup": "20161104",
         "macaddress": "0:0:0:0:123:123",
         "hostname": "FuYuan123",
-        "days": 3
+        "days": 3,
+        "signup": "20161104"
+    },
+    {
+        "macaddress": "::12::21",
+        "hostname": "QQ",
+        "days": 3,
+        "signup": "20161105"
     }
 ]

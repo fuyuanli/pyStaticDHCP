@@ -1,0 +1,15 @@
+[
+    {
+        "ddns-update-style" : "none",
+        "domain-name" : "nttu.edu.tw",
+        "domain-name-servers" : [
+            "163.28.179.30",
+            "163.28.179.20",
+            "210.240.170.230"
+        ],
+
+        "default-lease-time" : 7200,
+        "max-lease-time" : 14400,
+        "log-facility" : "local7"
+    }
+]

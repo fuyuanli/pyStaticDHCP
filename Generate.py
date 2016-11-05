@@ -30,9 +30,6 @@ class Generate:
             self.subnet = json.load(subnetJson)
         self.routhers = self.subnet[0]["routhers"]
         self.broadcastAddress = self.subnet[0]["broadcast-address"]
-
-        with open('users.json') as usersJson:
-            self.users = json.load(usersJson)
         self.ipTo = ipRange("to")
         self.ipFrom = ipRange("from")
 
@@ -41,7 +38,7 @@ class Generate:
         for i in range(listNums):
             if ipList[i] == ip:
                 ipList.remove(ip)
-                print("[checkExist]", ip, "已存在，從陣列移除。")
+                #print("[checkExist]", ip, "已存在，從陣列移除。")
                 break
 
     def allIPs(self, theNum):
@@ -91,10 +88,33 @@ class Generate:
         return ipList
 
     def conf(self):
+        with open('dhcp.json') as dhcpJson:
+            dhcp = json.load(dhcpJson)[0]
+        header = "ddns-update-style %s;\n" % dhcp["ddns-update-style"]
+        header+= "option domain-name %s;\n" % dhcp["domain-name"]
+        header+= "option domain-name-servers "
+        for i in range (len(dhcp["domain-name-servers"])):
+            if i != (len(dhcp["domain-name-servers"])-1):
+                header += "%s, " % dhcp["domain-name-servers"][i]
+            else:
+                header += "%s;\n\n" % dhcp["domain-name-servers"][i]
+        header+= "default-lease-time %d;\n" % dhcp["default-lease-time"]
+        header+= "max-lease-time %s;\n" % dhcp["max-lease-time"]
+        header+= "log-facility %s;\n\n" % dhcp["log-facility"]
 
+        with open('users.json') as usersJson:
+            users = json.load(usersJson)
+        subnetList = self.subnet
+        subnet = header
+        for i in range(len(subnetList)):
+            subnet +=  "subnet %s netmask %s {\n" % (subnetList[i]["subnet"], subnetList[i]["netmask"])
+            subnet += "\trange %s %s;\n" % (subnetList[i]["range"]["from"], subnetList[i]["range"]["to"])
+            subnet += "\toption routhers %s;\n" % (subnetList[i]["routhers"])
+            subnet += "\toption broadcast-address %s;\n\n" % (subnetList[i]["broadcast-address"])
+            for j in range(len(users)):
+                subnet += "\thost %s { hardware ethernet %s; fixed-address %s} \n" % (users[j]["hostname"], users[j]["macaddress"], self.list()[j])
+            subnet += "}\n"
 
-
-
-
-
-        #subnet += "\thost %s { hardware ethernet %s; fixed-address %s} \n" % (usersList[i]["hostname"], usersList[i]["macaddress"], usersList[i]["static"])
+        f = open("dhcpd.conf", 'w')
+        f.write(subnet)
+        print("寫入完畢")

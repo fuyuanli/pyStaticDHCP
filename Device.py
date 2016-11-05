@@ -32,7 +32,7 @@ class Device:
             "macaddress": self.getMac(),
         }
 
-        with codecs.open('macs.json', 'r+', encoding='utf-8') as f:
+        with codecs.open('users.json', 'r+', encoding='utf-8') as f:
             data = json.load(f)
 
             for i in range(len(data)):
