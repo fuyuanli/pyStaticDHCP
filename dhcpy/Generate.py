@@ -10,14 +10,14 @@ class ipRange:
                 with open('subnet.json') as subnetJson:
                     subnet = json.load(subnetJson)
 
-                    ip = subnet[0]["range"][args]
-                    dot1 = ip.find(".")
-                    dot2 = ip.find(".", dot1 + 1)
-                    dot3 = ip.find(".", dot2 + 1)
+                ip = subnet[0]["range"][args]
+                dot1 = ip.find(".")
+                dot2 = ip.find(".", dot1 + 1)
+                dot3 = ip.find(".", dot2 + 1)
 
-                    self.ip = subnet[0]["range"][args]
-                    self.getB = int(ip[dot2+1:dot3])
-                    self.getC = int(ip[dot3+1:])
+                self.ip = subnet[0]["range"][args]
+                self.getB = int(ip[dot2+1:dot3])
+                self.getC = int(ip[dot3+1:])
 
             else:
                 print("參數錯誤")
@@ -117,4 +117,4 @@ class Generate:
 
         f = open("dhcpd.conf", 'w')
         f.write(subnet)
-        print("寫入完畢")
+        print("[Success] dhcpd.conf 寫入完畢")
