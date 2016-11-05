@@ -46,8 +46,6 @@ class Generate:
                 break
 
     def allIPs(self, theNum):
-
-
         if theNum == 0:
             ips = self.ipTo.getC - self.ipFrom.getC
 
@@ -77,7 +75,6 @@ class Generate:
         classBNum = int(ips/254)
 
         theStatic = ""
-
         for i in range(classBNum +1):
             if classBNum == 0:
                 theStatic += self.ipLoop(fromC, toC, i, theStatic)
