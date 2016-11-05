@@ -28,7 +28,6 @@ class Generate:
     def __init__(self):
         with open('subnet.json') as subnetJson:
             self.subnet = json.load(subnetJson)
-
         self.routhers = self.subnet[0]["routhers"]
         self.broadcastAddress = self.subnet[0]["broadcast-address"]
 
@@ -90,6 +89,12 @@ class Generate:
         self.checkExist(ipList, self.routhers)
         self.checkExist(ipList, self.broadcastAddress)
         return ipList
+
+    def conf(self):
+
+
+
+
 
 
         #subnet += "\thost %s { hardware ethernet %s; fixed-address %s} \n" % (usersList[i]["hostname"], usersList[i]["macaddress"], usersList[i]["static"])
