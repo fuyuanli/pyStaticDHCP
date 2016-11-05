@@ -29,10 +29,21 @@ class Generate:
         with open('subnet.json') as subnetJson:
             self.subnet = json.load(subnetJson)
 
+        self.routhers = self.subnet[0]["routhers"]
+        self.broadcastAddress = self.subnet[0]["broadcast-address"]
+
         with open('users.json') as usersJson:
             self.users = json.load(usersJson)
         self.ipTo = ipRange("to")
         self.ipFrom = ipRange("from")
+
+    def checkExist(self, ipList, ip):
+        listNums = len(ipList)
+        for i in range(listNums):
+            if ipList[i] == ip:
+                ipList.remove(ip)
+                print("[checkExist]", ip, "已存在，從陣列移除。")
+                break
 
     def allIPs(self, theNum):
 
@@ -79,7 +90,8 @@ class Generate:
                 if i == classBNum:
                     theStatic += self.ipLoop(0, toC, i)
         ipList = theStatic.split("\n")
-        ipList.pop()
+        self.checkExist(ipList, self.routhers)
+        self.checkExist(ipList, self.broadcastAddress)
         return ipList
 
 

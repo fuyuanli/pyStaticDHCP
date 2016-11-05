@@ -3,10 +3,10 @@
 		"subnet": "10.211.0.0",
 		"netmask": "255.255.0.0",
 		"range": {
-			"from": "10.211.10.1",
-			"to": "10.211.12.12"
+			"from": "10.211.0.1",
+			"to": "10.211.10.15"
 		},
-		"option_routhers": "10.211.0.100",
-		"option_broadcast-address": "10.211.255.255"
+		"routhers": "10.211.0.100",
+		"broadcast-address": "10.211.255.255"
 	}
 ]
